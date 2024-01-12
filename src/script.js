@@ -19,6 +19,24 @@ const canvas = document.querySelector('canvas.webgl');
 // Scene
 const scene = new THREE.Scene();
 
+// Lights
+const ambientLight = new THREE.AmbientLight(0xffffff, 1)
+scene.add(ambientLight)
+//gui.add(ambientLight, 'intensity').min(0).max(3).step(0.001)
+
+const directionalLight = new THREE.DirectionalLight(0x00ffc, 0.9)
+scene.add(directionalLight)
+
+const hemisphereLight = new THREE.HemisphereLight(0xff0000, 0x0000ff, 0.9)
+scene.add(hemisphereLight)
+
+const pointLight = new THREE.PointLight(0xff9000, 1.5)
+pointLight.position.set(1, -0.5, 1)
+scene.add(pointLight)
+
+const rectAreaLight = new THREE.RectAreaLight(0x4e00ff, 6, 1, 1)
+scene.add(rectAreaLight)
+
 //Axes helper
 // const axesHelper = new THREE.AxesHelper();
 // scene.add(axesHelper);
@@ -50,9 +68,13 @@ fontLoader.load('/fonts/helvetiker_regular.typeface.json', (font) => {
 
     // const textMaterial = new THREE.MeshBasicMaterial();
     //use this for both mesh
-    const material = new THREE.MeshMatcapMaterial({
-        matcap: matcapTexture
-    });
+    // const material = new THREE.MeshMatcapMaterial({
+    //     matcap: matcapTexture
+    // });
+
+    const material = new THREE.MeshStandardMaterial()
+    material.roughness = 0.4
+
     // textMaterial.wireframe = true;
     const text = new THREE.Mesh(textGeometry, material);
     scene.add(text);
